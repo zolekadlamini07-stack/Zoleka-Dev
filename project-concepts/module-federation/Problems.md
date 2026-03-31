@@ -1,9 +1,7 @@
-# Module Federation — Gotchas
-
-Issues encountered during development of this demo and how they were resolved.
+# Module Federation
+Issues I encountered during development of this demo and how they were resolved.
 
 ---
-
 ## 1. Wrong remote URL fails silently
 
 If a remote URL in the host vite config points to the wrong port, the host loads the wrong application with no error or warning.
@@ -23,9 +21,3 @@ Fix: After changing a remote — rebuild it, re-serve it, then hard refresh the 
 In production this is handled by content hashing in filenames. When content changes the filename changes, the browser has never seen it before and fetches it fresh.
 
 ---
-
-## 3. TypeScript does not know remote prop types
-
-When importing a remote component via React.lazy, TypeScript has no type information about its props. Passing props to the remote component will show a TypeScript error even if the props are correct.
-
-Fix: Define a shared interface or type the lazy import explicitly. For simple cases, typing the props as any is acceptable in a demo context but should be avoided in production.
