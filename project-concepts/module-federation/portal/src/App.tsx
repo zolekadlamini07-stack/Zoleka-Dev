@@ -1,121 +1,124 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { Suspense, useState } from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+const FinanceApp = React.lazy(() => import('financeApp/App'))
+const HrApp = React.lazy(() => import('hrApp/App'))
+
+type AppKey = 'finance' | 'hr' | null
+
+const tiles = [
+  { key: 'finance' as AppKey, label: 'Finance', description: 'Budget and transactions' },
+  { key: 'hr' as AppKey, label: 'HR ', description: 'Team and leave management' },
+]
+
+const App = () => {
+  const [activeApp, setActiveApp] = useState<AppKey>(null)
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <div style={styles.container}>
+        <header style={styles.header}>
+          <h1 style={styles.logo}> Portal</h1>
+          {activeApp && (
+              <button style={styles.backButton} onClick={() => setActiveApp(null)}>
+                ← Back to Dashboard
+              </button>
+          )}
+        </header>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        {!activeApp ? (
+            <div style={styles.dashboard}>
+              <p style={styles.welcome}>Welcome back, Zoleka. Select an application to continue.</p>
+              <div style={styles.tilesGrid}>
+                {tiles.map((tile) => (
+                    <div
+                        key={tile.key}
+                        style={styles.tile}
+                        onClick={() => setActiveApp(tile.key)}
+                    >
+                      <span style={styles.tileIcon}>{tile.label.split(' ')[0]}</span>
+                      <span style={styles.tileLabel}>{tile.label.split(' ')[1]}</span>
+                      <span style={styles.tileDescription}>{tile.description}</span>
+                    </div>
+                ))}
+              </div>
+            </div>
+        ) : (
+            <Suspense fallback={<div style={styles.loading}>Loading application...</div>}>
+              {activeApp === 'finance' && <FinanceApp />}
+              {activeApp === 'hr' && <HrApp />}
+            </Suspense>
+        )}
+      </div>
   )
+}
+
+const styles: Record<string, React.CSSProperties> = {
+  container: {
+    fontFamily: 'sans-serif',
+    minHeight: '100vh',
+    background: '#1a1a2e',
+    color: '#ffffff'
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '20px 32px',
+    borderBottom: '1px solid rgba(255,255,255,0.1)'
+  },
+  logo: {
+    margin: 0,
+    fontSize: '20px',
+    letterSpacing: '0.05em'
+  },
+  backButton: {
+    background: 'rgba(255,255,255,0.1)',
+    border: '1px solid rgba(255,255,255,0.2)',
+    color: '#fff',
+    padding: '8px 16px',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontSize: '14px'
+  },
+  dashboard: {
+    padding: '48px 32px'
+  },
+  welcome: {
+    color: 'rgba(255,255,255,0.6)',
+    marginBottom: '32px',
+    fontSize: '15px'
+  },
+  tilesGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+    gap: '16px',
+    maxWidth: '600px'
+  },
+  tile: {
+    background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '12px',
+    padding: '24px',
+    cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+    transition: 'background 0.2s'
+  },
+  tileIcon: {
+    fontSize: '28px'
+  },
+  tileLabel: {
+    fontSize: '16px',
+    fontWeight: '600'
+  },
+  tileDescription: {
+    fontSize: '12px',
+    color: 'rgba(255,255,255,0.5)'
+  },
+  loading: {
+    padding: '48px 32px',
+    color: 'rgba(255,255,255,0.5)'
+  }
 }
 
 export default App
