@@ -6,12 +6,26 @@ Each concept folder contains a README explaining the concept, and code examples 
 
 ## Concepts
 
-| Concept | C# | TypeScript | Status |
-|---|---|---|---|
-| encapsulation | yes | yes | done |
-| inheritance | no | no | planned |
-| polymorphism | no | no | planned |
-| abstraction | no | no | planned |
-| interfaces | no | no | planned |
-| inheritance-vs-composition | no | no | planned |
-| solid-principles | no | no | planned |
+| Concept | Folder | C# | TypeScript | Status |
+|---|---|---|---|---|
+| Encapsulation | 01-encapsulation | yes | yes | done |
+| Inheritance | 02-inheritance | yes | yes | done |
+| Polymorphism | 03-polymorphism | yes | yes | done |
+| Abstraction | 04-abstraction | yes | yes | done |
+| Interfaces | 05-interfaces | yes | yes | done |
+| Inheritance vs Composition | 06-inheritance-vs-composition | yes | yes | done |
+| SOLID Principles | 07-solid-principles | yes | no | done |
+
+## SOLID Principles
+
+The 07-solid-principles folder contains subfolders for each principle:
+
+| Principle | Folder |
+|---|---|
+| Single Responsibility | 01-single-responsibility |
+| Open/Closed | 02-open-closed |
+| Liskov Substitution | 03-liskov-substitution |
+| Interface Segregation | 04-interface-segregation |
+| Dependency Inversion | 05-dependency-inversion |
+
+Each SOLID principle folder includes both a violation example and a refactored version.

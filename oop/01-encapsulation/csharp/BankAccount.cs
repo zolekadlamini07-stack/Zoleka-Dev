@@ -1,10 +1,10 @@
+/*
+ * Demonstrates: Encapsulation
+ * Concept: Private state, controlled access through methods, factory method for creation
+ */
+
 namespace FinanceDomain.Encapsulation;
 
-/// <summary>
-/// Represents a basic bank account.
-/// Encapsulation: balance is private, business rules are internal,
-/// transaction history is read-only externally, creation is controlled via factory method.
-/// </summary>
 public class BankAccount
 {
     private decimal _balance;
@@ -71,9 +71,3 @@ public class BankAccount
         return string.Join(Environment.NewLine, lines);
     }
 }
-
-// Usage:
-// var account = BankAccount.Create("ACC-001", "Account Holder Name", 1000m);
-// account.Deposit(500m);
-// account.Withdraw(200m);
-// Console.WriteLine(account.GetStatement());

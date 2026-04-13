@@ -1,3 +1,8 @@
+/*
+ * Demonstrates: Encapsulation
+ * Concept: Private state, controlled access through methods, factory method for creation
+ */
+
 class BankAccount {
   private _balance: number;
   private readonly _transactionHistory: string[] = [];
@@ -50,9 +55,3 @@ class BankAccount {
 }
 
 export { BankAccount };
-
-// Usage:
-// const account = BankAccount.create("ACC-001", "Account Holder Name", 1000);
-// account.deposit(500);
-// account.withdraw(200);
-// console.log(account.getStatement());

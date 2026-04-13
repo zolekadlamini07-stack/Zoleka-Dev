@@ -2,21 +2,21 @@
 
 ## Core Pillars
 - [x] Encapsulation
-- [ ] Inheritance
-- [ ] Polymorphism
-- [ ] Abstraction
+- [x] Inheritance
+- [x] Polymorphism
+- [x] Abstraction
 
 ## Contracts and Design
-- [ ] Interfaces
-- [ ] Abstract Classes
-- [ ] Inheritance vs Composition
+- [x] Interfaces
+- [x] Abstract Classes
+- [x] Inheritance vs Composition
 
 ## Principles
-- [ ] SOLID - Single Responsibility
-- [ ] SOLID - Open/Closed
-- [ ] SOLID - Liskov Substitution
-- [ ] SOLID - Interface Segregation
-- [ ] SOLID - Dependency Inversion
+- [x] SOLID - Single Responsibility
+- [x] SOLID - Open/Closed
+- [x] SOLID - Liskov Substitution
+- [x] SOLID - Interface Segregation
+- [x] SOLID - Dependency Inversion
 
 ## Advanced
 - [ ] Generics
